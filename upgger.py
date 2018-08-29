@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-  v0.10 2018/08/31 new creation
+  v0.10 2018/08/30 new creation
 
   uploader for blogger by python3
 
