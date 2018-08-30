@@ -13,24 +13,36 @@ command line based HTML uploader for Google Blogger written by Python.
  - Go to Google Developers Console, and create new project.
  - Enable Blogger api.
  - From Credentials page, click on "OAuth consent screen" tab. Then click on "Save" button
- - From Credentials page, click on "Create Credentials" dropdown and select "OAuth client ID"
+ - From Credentials page, click on "Credentials" dropdown and select "OAuth client ID"
  - From Create Client ID page, select "Other" and fill out "Name"
- - Finish by clicking create, console will provide client ID and Client Secrect
-* Re-write script to get three IDs.
+ - From Credentials page, select "Credentials" tab and download "secret id" file on project.
+ - Rename a download "secret id" file(json) to "secret_id.json"
+ - Move "secret_id.json" file to ".upgger.conf" directory
+* Re-write script to get BLOG ID.
+ - Move to ".upgger.conf" directory and open "upgger.yaml"
+ - blog_id displayed on URL address bar in Blogger edit screen
 ```
-CLIENT_ID     = 'INPUT CLIENT ID'
-CLIENT_SECRET = 'INPUT CLIENT SECRET'
-BLOG_ID       = 'INPUT BLOG ID'
+blog_id: 'INPUT BLOG ID'
+```
+* Please check ".upgger.conf" directory
+```
+$ ls -a .upgger.conf
+. .. secret_id.json upgger.yaml
 ```
 
 ## Install python module
 ```
-$ pip install google--api-python-client oauth2client
+$ pip install google--api-python-client oauth2client PyYAML
 ```
 
 ## Usage
 At the first time, please "authirization" and "allow" on the browser.  
-If successful, generated "upgger.dat" credential file.
+If successful, generated "upgger.json" credential file.
+```
+$ ls -a .upgger.conf
+. .. secret_id.json upgger.json upgger.yaml
+```
+
 * Basic type (-i option is required)
 ```
 $ python3 upgger.py -i hello.html
@@ -66,5 +78,12 @@ In the above, title is filename, label is none, status is DRAFT.
 * no schedule
 * no permalink
 
+## Development Environment
+* OS: Fedora 28 (4.17.18.200) on x86_64
+* Python: 3.6.6
+* google-api-python-client: 1.7.4
+* oauth2client: 4.1.2
+
 ## Version
+* v0.20 2018/08/31 add to read json and yaml
 * v0.10 2018/08/30 new creation

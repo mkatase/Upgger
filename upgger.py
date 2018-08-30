@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 """
   v0.10 2018/08/30 new creation
+  v0.20 2018/08/31 add to json and yaml
 
-  uploader for blogger by python3
+  uploader for blogger
 
   Usage:
     $ python3 upgger.py -i hoge.html
@@ -24,20 +25,17 @@
 """
 
 __author__  = 'mkatase (michimoto.katase@gmail.com'
-__version__ = '0.10'
-
-CLIENT_ID     = 'INPUT CLIENT ID'
-CLIENT_SECRET = 'INPUT CLIENT SECRET'
-BLOG_ID       = 'INPUT BLOG ID'
+__version__ = '0.20'
 
 from sys import *
 from string import *
 from argparse import ArgumentParser
 from apiclient.discovery import build
-from oauth2client.client import OAuth2WebServerFlow
+from oauth2client.client import flow_from_clientsecrets
 from oauth2client        import tools,file
 import httplib2
 import os
+import yaml
 
 class Upgger:
     def __init__(self, opts):
@@ -57,55 +55,58 @@ class Upgger:
             print('Input File Not Found...')
             exit()
 
+    def checkdir(self):
+        s_dir = os.path.abspath( os.path.dirname( __file__ ) )
+        self.c_dir = os.path.join( s_dir, ".upgger.conf" )
+
+        if not os.path.exists( self.c_dir ):
+            os.mkdir( self.c_dir )
+
     def checkstorage(self):
         flags         = '--auth_host_name localhost --logging_level INFO'
         scope         = 'https://www.googleapis.com/auth/blogger'
-        redirect_uri  = 'urn:ietf:wg:oauth:2.0:oob'
-        flow          = OAuth2WebServerFlow(client_id=CLIENT_ID,
-                                            client_secret=CLIENT_SECRET,
-                                            scope=scope,
-                                            redirect_uri=redirect_uri)
 
-        storage     = file.Storage( __file__ + '.dat' )
+        c_path = os.path.join( self.c_dir, "upgger.json" )
+        s_path = os.path.join( self.c_dir, "secret_id.json" )
+        storage     = file.Storage( c_path )
         credentials = storage.get()
 
-        if credentials is None or credentials.invalid:
+        if not credentials or credentials.invalid:
             flags = tools.argparser.parse_args(flags.split())
+            flow  = flow_from_clientsecrets(s_path, scope)
             credentials = tools.run_flow(flow, storage, flags)
-        #else:
-        #    print('Storage file not found or Credentials invalid...')
-        #    exit()
 
         return credentials
 
     def createbody(self):
         body = {}
         body['kind']       = 'blogger#post'
-        body['id']         = BLOG_ID
+        body['id']         = self.b_id
         body['title']      = self.title
         body['content']    = self.content
         if self.label is not None: 
             body['labels'] = self.label.split(',')
         return body
 
+    def getyaml(self):
+        b_path = os.path.join( self.c_dir, "upgger.yaml" )
+        with open(b_path) as fp:
+            data = yaml.load(fp)
+        self.b_id = data['blog_id']
+
     def uploadfile(self, cr):
         http = cr.authorize(http = httplib2.Http())
         service = build('blogger', 'v3', http=http)
         posts   = service.posts()
 
-        insert = posts.insert(blogId=BLOG_ID, isDraft=self.draft,
+        self.getyaml()
+        insert = posts.insert(blogId=self.b_id, isDraft=self.draft,
                               body=self.createbody())
-        #if self.draft:
-        #    insert = posts.insert(blogId=BLOG_ID, isDraft=self.draft,
-        #    #insert = posts.insert(blogId=BLOG_ID, isDraft="true",
-        #                          body=self.createbody())
-        #else:
-        #    insert = posts.insert(blogId=BLOG_ID,
-        #                          body=self.createbody())
         insert.execute()
 
     def start(self):
         self.checkfile()
+        self.checkdir()
         self.uploadfile( self.checkstorage() )
 
 if __name__ == '__main__':

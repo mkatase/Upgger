@@ -15,21 +15,33 @@ Google BloggerのためのHTMLアップローダ。Pythonにて実装。
  - 「認証情報」から、「OAuth同意画面」タブを選択し、必須事項を記入後、「保存」をクリック
  - 「認証情報」から、「認証情報」タブから「認証情報を作成」から「OAuthクライアントID」選択
  - 「アプリケーションの種類」から、「その他」を選択、「名前」を適宜入力し、「作成」クリック
- - ポップアップ表示される「クライアントIDとクライアントシークレット」を保持
-* 保持した3つのIDをScriptの以下を書き換えます
+ - 「認証情報」から、「認証情報」タブを選択し、当該プロジェクトから「SECRET ID」をダウンロード
+ - ダウンロードした「SECRET ID」ファイル(JSON形式)を「secret_id.json」にリネームする
+ - 「secret_id.json」ファイルを「.uppger.conf」ディレクトリに移動する
+* BLOG_IDを書き換えます
+ - 「.upgger.conf」ディレクトリに移動し、「upgger.yaml」を開きます
+ - Blogger編集画面のURLアドレスバーに表示されているBLOG_IDを書き込みます
 ```
-CLIENT_ID     = 'INPUT CLIENT ID'
-CLIENT_SECRET = 'INPUT CLIENT SECRET'
-BLOG_ID       = 'INPUT BLOG ID'
+blog_id: 'INPUT BLOG ID'
+```
+* 「.upgger.conf」ディレクトリを確認してください
+```
+$ ls -a .upgger.conf
+. .. secret_id.json upgger.yaml
 ```
 
 ## Pythonモジュールのインストール
 ```
-$ pip install google--api-python-client oauth2client
+$ pip install google--api-python-client oauth2client　PyYAML
 ```
 
 ## 使用方法
-実行初回時、ブラウザ上で、「認証」や「許可」を行ってください。成功すれば「upgger.dat」ファイルが作成されます
+実行初回時、ブラウザ上で、「認証」や「許可」を行ってください。成功すれば「upgger.json」ファイルが「.uppger.conf」ディレクトリに作成されます
+```
+$ ls -a .upgger.conf
+. .. secret_id.json upgger.json upgger.yaml
+```
+
 * 標準 (-iオプションは必須)
 ```
 $ python3 upgger.py -i hello.html
@@ -65,5 +77,12 @@ $ python3 upgger.py - hello.html -d
 * スケジュールは設定できない
 * パーマリンクは設定できない
 
+## 開発環境
+* OS: Fedora 28 (4.17.18.200) on x86_64
+* Python: 3.6.6
+* google-api-python-client: 1.7.4
+* oauth2client: 4.1.2
+
 ## バージョン
+* v0.20 2018/08/31 json及びyamlの読み込み部分の修正・追加
 * v0.10 2018/08/30 新規作成
