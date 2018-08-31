@@ -1,4 +1,4 @@
-# Google BloggerのためのHTMLアップローダ
+# Upgger - Google BloggerのためのHTMLアップローダ
 Google BloggerのためのHTMLアップローダ。Pythonにて実装。
 
 ## 環境

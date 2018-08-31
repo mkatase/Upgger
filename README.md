@@ -1,5 +1,5 @@
-# HTML Uploader for Blogger
-Upgger - command line based HTML uploader for Google Blogger written by Python.
+# Upgger - HTML Uploader for Blogger
+command line based HTML uploader for Google Blogger written by Python.
 
 ## Environment
 * Python 3
