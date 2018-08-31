@@ -68,7 +68,7 @@ $ python3 upgger.py -i hello.html -l abc,def
 
 * -dもしくは--draftオプションを追加
 ```
-$ python3 upgger.py - hello.html -d
+$ python3 upgger.py -i hello.html -d
 ```
 上記の場合、タイトルはファイル名、ラベルは無し、ステータスはDRAFT（下書き）
 

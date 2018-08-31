@@ -69,7 +69,7 @@ Delimitor is comma charactor.
 
 * Add to -d or --draft option
 ```
-$ python3 upgger.py - hello.html -d
+$ python3 upgger.py -i hello.html -d
 ```
 In the above, title is filename, label is none, status is DRAFT.
  
