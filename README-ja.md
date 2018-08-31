@@ -8,19 +8,19 @@ Google BloggerのためのHTMLアップローダ。Pythonにて実装。
 
 ## ID作成 (ラフ)
 * Blog ID:
- - GoogleアカウントでBloggerの設定を行い, URLバーに表示されるblogIDを保持
+	- GoogleアカウントでBloggerの設定を行い, URLバーに表示されるblogIDを保持
 * Client IDとClient Secret ID:
- - Google Developers Consoleにログインをし, 新規Projectを作成
- - Blogger API v3を有効化
- - 「認証情報」から、「OAuth同意画面」タブを選択し、必須事項を記入後、「保存」をクリック
- - 「認証情報」から、「認証情報」タブから「認証情報を作成」から「OAuthクライアントID」選択
- - 「アプリケーションの種類」から、「その他」を選択、「名前」を適宜入力し、「作成」クリック
- - 「認証情報」から、「認証情報」タブを選択し、当該プロジェクトから「SECRET ID」をダウンロード
- - ダウンロードした「SECRET ID」ファイル(JSON形式)を「secret_id.json」にリネームする
- - 「secret_id.json」ファイルを「.uppger.conf」ディレクトリに移動する
+	- Google Developers Consoleにログインをし, 新規Projectを作成
+	- Blogger API v3を有効化
+	- 「認証情報」から、「OAuth同意画面」タブを選択し、必須事項を記入後、「保存」をクリック
+	- 「認証情報」から、「認証情報」タブから「認証情報を作成」から「OAuthクライアントID」選択
+	- 「アプリケーションの種類」から、「その他」を選択、「名前」を適宜入力し、「作成」クリック
+	- 「認証情報」から、「認証情報」タブを選択し、当該プロジェクトから「SECRET ID」をダウンロード
+	- ダウンロードした「SECRET ID」ファイル(JSON形式)を「secret_id.json」にリネームする
+	- 「secret_id.json」ファイルを「.uppger.conf」ディレクトリに移動する
 * BLOG_IDを書き換えます
- - 「.upgger.conf」ディレクトリに移動し、「upgger.yaml」を開きます
- - Blogger編集画面のURLアドレスバーに表示されているBLOG_IDを書き込みます
+	- 「.upgger.conf」ディレクトリに移動し、「upgger.yaml」を開きます
+	- Blogger編集画面のURLアドレスバーに表示されているBLOG_IDを書き込みます
 ```
 blog_id: 'INPUT BLOG ID'
 ```

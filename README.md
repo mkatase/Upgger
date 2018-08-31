@@ -1,5 +1,5 @@
 # HTML Uploader for Blogger
-command line based HTML uploader for Google Blogger written by Python.
+Upgger - command line based HTML uploader for Google Blogger written by Python.
 
 ## Environment
 * Python 3
@@ -8,19 +8,19 @@ command line based HTML uploader for Google Blogger written by Python.
 
 ## Making ID (Rough)
 * Blog ID:
- - When finished a Blog on Blogger, blogID displayed by Url Address bar.
+	- When finished a Blog on Blogger, blogID displayed by Url Address bar.
 * Client ID and Client Secret ID
- - Go to Google Developers Console, and create new project.
- - Enable Blogger api.
- - From Credentials page, click on "OAuth consent screen" tab. Then click on "Save" button
- - From Credentials page, click on "Credentials" dropdown and select "OAuth client ID"
- - From Create Client ID page, select "Other" and fill out "Name"
- - From Credentials page, select "Credentials" tab and download "secret id" file on project.
- - Rename a download "secret id" file(json) to "secret_id.json"
- - Move "secret_id.json" file to ".upgger.conf" directory
+	- Go to Google Developers Console, and create new project.
+	- Enable Blogger api.
+	- From Credentials page, click on "OAuth consent screen" tab. Then click on "Save" button
+	- From Credentials page, click on "Credentials" dropdown and select "OAuth client ID"
+	- From Create Client ID page, select "Other" and fill out "Name"
+	- From Credentials page, select "Credentials" tab and download "secret id" file on project.
+	- Rename a download "secret id" file(json) to "secret_id.json"
+	- Move "secret_id.json" file to ".upgger.conf" directory
 * Re-write script to get BLOG ID.
- - Move to ".upgger.conf" directory and open "upgger.yaml"
- - blog_id displayed on URL address bar in Blogger edit screen
+	- Move to ".upgger.conf" directory and open "upgger.yaml"
+	- blog_id displayed on URL address bar in Blogger edit screen
 ```
 blog_id: 'INPUT BLOG ID'
 ```
