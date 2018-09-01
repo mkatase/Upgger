@@ -3,29 +3,46 @@
 """
   v0.10 2018/08/30 new creation
   v0.20 2018/08/31 add to json and yaml
+  v0.30 2018/09/01 delete to kind/id in body and change flags
+  v0.40 2018/09/02 add to published option(-p)
 
   uploader for blogger
 
   Usage:
     $ python3 upgger.py -i hoge.html
-  When this is the case, title is filename, label is none, status is LIVE.
+  When this is the case, title is filename, label is none,
+  published date is none, status is LIVE.
+
     $ python3 upgger.py -t moge -i hoge.html
-  When this is the case, title is "moge", label is none, status is LIVE.
+  When this is the case, title is "moge", label is none,
+  published date is none,  status is LIVE.
+
     $ python3 upgger.py -t "hoge hoge" -i hoge.html
     or
     $ python3 upgger.py -t hoge\ hoge -i hoge.html
-  When this is the case, title is "hoge hoge", label is none, status is LIVE.
+  When this is the case, title is "hoge hoge", label is none,
+  published date is none, status is LIVE.
+
     $ python3 upgger.py -l aaa -i hoge.html
-  When this is the case, title is filename, label is "aaa", status is LIVE.
+  When this is the case, title is filename, label is "aaa",
+  published date is none, status is LIVE.
+
     $ python3 upgger.py -l aaa,bbb -i hoge.html
   When this is the case, title is filename, labels are "aaa" and "bbb",
-  status is LIVE.
+  published date is none, status is LIVE.
+
+    $ python3 upgger.py -i hoge.html -p 20XX-YY-ZZ
+  When this is the case, title is filename, labels is none,
+  published date is "20XX-YY-ZZ", status is none.
+
     $ python3 upgger.py -i hoge.html -d
-  When this is the case, title is filename, label is none, status is DRAFT.
+  When this is the case, title is filename, label is none,
+  status is DRAFT.
+
 """
 
 __author__  = 'mkatase (michimoto.katase@gmail.com'
-__version__ = '0.20'
+__version__ = '0.40'
 
 from sys import *
 from string import *
@@ -33,6 +50,8 @@ from argparse import ArgumentParser
 from apiclient.discovery import build
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client        import tools,file
+import datetime
+import dateutil.tz as tz
 import httplib2
 import os
 import yaml
@@ -42,6 +61,7 @@ class Upgger:
         self.ifile = opts.file
         self.label = opts.label
         self.title = opts.title
+        self.pdate = opts.pub
         self.draft = opts.draft
 
     def checkfile(self):
@@ -63,8 +83,9 @@ class Upgger:
             os.mkdir( self.c_dir )
 
     def checkstorage(self):
-        flags         = '--auth_host_name localhost --logging_level INFO'
-        scope         = 'https://www.googleapis.com/auth/blogger'
+        flags = ['--auth_host_name','localhost']
+        #flags = None
+        scope = 'https://www.googleapis.com/auth/blogger'
 
         c_path = os.path.join( self.c_dir, "upgger.json" )
         s_path = os.path.join( self.c_dir, "secret_id.json" )
@@ -72,20 +93,26 @@ class Upgger:
         credentials = storage.get()
 
         if not credentials or credentials.invalid:
-            flags = tools.argparser.parse_args(flags.split())
             flow  = flow_from_clientsecrets(s_path, scope)
             credentials = tools.run_flow(flow, storage, flags)
+            #credentials = tools.run_flow(flow, storage, None)
 
         return credentials
 
     def createbody(self):
         body = {}
-        body['kind']       = 'blogger#post'
-        body['id']         = self.b_id
-        body['title']      = self.title
-        body['content']    = self.content
+
+        body['title']   = self.title
+        body['content'] = self.content
+
+        if self.pdate:
+            d = datetime.datetime.strptime(self.pdate,'%Y-%m-%d')
+            e = datetime.datetime(d.year, d.month, d.day, tzinfo=tz.tzlocal())
+            body['published'] = e.isoformat()
+
         if self.label is not None: 
             body['labels'] = self.label.split(',')
+
         return body
 
     def getyaml(self):
@@ -115,12 +142,14 @@ if __name__ == '__main__':
     U = U + '[-i|--in] <Input HTML> [-d|--draft]'
     p = ArgumentParser(usage=U)
 
+    p.add_argument("-i", "--in", dest="file",
+        help="Input HTML file")
     p.add_argument("-t", "--title", dest="title",
         help="Input Title (default is Input HTML filename")
     p.add_argument("-l", "--label", dest="label", default=None,
         help="Input Labels (comma separated)")
-    p.add_argument("-i", "--in", dest="file",
-        help="Input HTML file")
+    p.add_argument("-p", "--pub", dest="pub",
+        help="Input Published Date String (ex. 2050-01-01)")
     p.add_argument("-d", "--draft", dest="draft", default=None,
         action="store_true", help="Input Status flag")
     p.add_argument('--version', action='version', version=__version__)

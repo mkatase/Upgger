@@ -46,25 +46,31 @@ $ ls -a .upgger.conf
 ```
 $ python3 upgger.py -i hello.html
 ```
-上記の場合、タイトルはファイル名(hello.html)、ラベルは無し、ステータスはLIVE（公開）
+上記の場合、タイトルはファイル名(hello.html)、ラベルは無し、スケジュールは無し、ステータスはLIVE（公開）
 
 * -tもしくは--titleオプションを追加
 ```
 $ python3 upgger.py -i hello.html -t hello
 ```
-上記の場合、タイトルは「hello」、ラベルは無し、ステータスはLIVE（公開）
+上記の場合、タイトルは「hello」、ラベルは無し、スケジュールは無し、ステータスはLIVE（公開）
 ```
 $ python3 upgger.py -i hello.html -t "Hello World"
 $ python3 upgger.py -i hello.html -t Hello\ World
 ```
-タイトルに半角スペースがある場合、ダブルコーテーションかバックスラッシュを使用する。この場合、タイトルは「Hello World」、ラベルは無し、ステータスはLIVE（公開）
+タイトルに半角スペースがある場合、ダブルコーテーションかバックスラッシュを使用する。この場合、タイトルは「Hello World」、ラベルは無し、スケジュールは無し、ステータスはLIVE（公開）
 
 * -lもしくは-labelオプションを追加
 ```
 $ python3 upgger.py -i hello.html -l abc,def
 ```
-上記の場合、タイトルはファイル名、ラベルは「abc」と「def」、ステータスは公開（LIVE）  
+上記の場合、タイトルはファイル名、ラベルは「abc」と「def」、スケジュールは無し、ステータスは公開（LIVE）  
 ラベルが複数の場合、カンマを用いて、文字を連結
+
+* -pもしくは-pubオプションを追加
+```
+$ python3 upgger.py -i hello.html -p 20XX-YY-ZZ
+```
+上記の場合、タイトルはファイル名、ラベルは無し、スケジュールは「20XX-YY-ZZ」、ステータスは公開（効果なし）
 
 * -dもしくは--draftオプションを追加
 ```
@@ -73,16 +79,18 @@ $ python3 upgger.py -i hello.html -d
 上記の場合、タイトルはファイル名、ラベルは無し、ステータスはDRAFT（下書き）
 
 ## 制限
-* 画像ファイルはアップロードできない
-* スケジュールは設定できない
+*  ~~画像ファイルはアップロードできない~~
+*  ~~スケジュールは設定できない~~
 * パーマリンクは設定できない
 
 ## 開発環境
-* OS: Fedora 28 (4.17.18.200) on x86_64
+* OS: Fedora 28 (4.17.19.200) on x86_64
 * Python: 3.6.6
 * google-api-python-client: 1.7.4
 * oauth2client: 4.1.2
 
 ## バージョン
+* v0.40 2018/09/02 スケジュールオプションを追加
+* v0.30 2018/09/01 body内のkind/idを削除。flagsの変更。
 * v0.20 2018/08/31 json及びyamlの読み込み部分の修正・追加
 * v0.10 2018/08/30 新規作成

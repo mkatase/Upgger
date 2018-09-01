@@ -47,43 +47,57 @@ $ ls -a .upgger.conf
 ```
 $ python3 upgger.py -i hello.html
 ```
-In the above, title is filename(hello.html), label is none, status is LIVE.
+In the above, title is filename(hello.html), label is none,
+published date is none, status is LIVE.
 
 * Add to -t or --title option
 ```
 $ python3 upgger.py -i hello.html -t hello
 ```
-In the above, title is "hello", label is none, status is LIVE.
+In the above, title is "hello", label is none,
+published date is none, status is LIVE.
 ```
 $ python3 upgger.py -i hello.html -t "Hello World"
 $ python3 upgger.py -i hello.html -t Hello\ World
 ```
-In the above using double quote or backslash, title is "Hello World", label is none, status is LIVE.
+In the above using double quote or backslash, title is "Hello World",
+label is none, published date is none, status is LIVE.
 
 * Add to -l or --label option
 ```
 $ python3 upgger.py -i hello.html -l abc,def
 ```
-In the above, title is filename, labels are "abc" and "def", status is LIVE.  
+In the above, title is filename, labels are "abc" and "def",
+published date is none, status is LIVE.  
 Delimitor is comma charactor.
+
+* Add to -p or --pub option
+```
+$ python3 upgger.py -i hello.html -p 20XX-YY-ZZ
+```
+In the above, title is filename, label is none,
+published date is "20XX-YY-ZZ", status is LIVE(no effect).
 
 * Add to -d or --draft option
 ```
 $ python3 upgger.py -i hello.html -d
 ```
-In the above, title is filename, label is none, status is DRAFT.
+In the above, title is filename, label is none,
+published date is none, status is DRAFT.
  
 ## Limitation
-* no upload image file
-* no schedule
+*  ~~no upload image file~~
+*  ~~no schedule~~
 * no permalink
 
 ## Development Environment
-* OS: Fedora 28 (4.17.18.200) on x86_64
+* OS: Fedora 28 (4.17.19.200) on x86_64
 * Python: 3.6.6
 * google-api-python-client: 1.7.4
 * oauth2client: 4.1.2
 
 ## Version
+* v0.40 2018/09/02 add to published option(-p)
+* v0.30 2018/09/01 delete kind/id in body and change flags
 * v0.20 2018/08/31 add to read json and yaml
 * v0.10 2018/08/30 new creation
