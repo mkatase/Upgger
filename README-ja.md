@@ -32,7 +32,7 @@ $ ls -a .upgger.conf
 
 ## Pythonモジュールのインストール
 ```
-$ pip install google--api-python-client oauth2client　PyYAML
+$ pip install google-api-python-client oauth2client　PyYAML
 ```
 
 ## 使用方法
