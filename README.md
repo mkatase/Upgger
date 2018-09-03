@@ -97,6 +97,7 @@ published date is none, status is DRAFT.
 * oauth2client: 4.1.2
 
 ## Version
+* v0.50 2018/09/03 delete to timezone
 * v0.40 2018/09/02 add to published option(-p)
 * v0.30 2018/09/01 delete kind/id in body and change flags
 * v0.20 2018/08/31 add to read json and yaml

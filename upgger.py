@@ -5,6 +5,7 @@
   v0.20 2018/08/31 add to json and yaml
   v0.30 2018/09/01 delete to kind/id in body and change flags
   v0.40 2018/09/02 add to published option(-p)
+  v0.50 2018/09/03 delete to timezone
 
   uploader for blogger
 
@@ -42,7 +43,7 @@
 """
 
 __author__  = 'mkatase (michimoto.katase@gmail.com'
-__version__ = '0.40'
+__version__ = '0.50'
 
 from sys import *
 from string import *
@@ -51,7 +52,6 @@ from apiclient.discovery import build
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client        import tools,file
 import datetime
-import dateutil.tz as tz
 import httplib2
 import os
 import yaml
@@ -107,7 +107,7 @@ class Upgger:
 
         if self.pdate:
             d = datetime.datetime.strptime(self.pdate,'%Y-%m-%d')
-            e = datetime.datetime(d.year, d.month, d.day, tzinfo=tz.tzlocal())
+            e = datetime.datetime(d.year, d.month, d.day)
             body['published'] = e.isoformat()
 
         if self.label is not None: 

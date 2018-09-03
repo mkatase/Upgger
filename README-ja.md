@@ -90,6 +90,7 @@ $ python3 upgger.py -i hello.html -d
 * oauth2client: 4.1.2
 
 ## バージョン
+* v0.50 2018/09/03 タイムゾーンを削除
 * v0.40 2018/09/02 スケジュールオプションを追加
 * v0.30 2018/09/01 body内のkind/idを削除。flagsの変更。
 * v0.20 2018/08/31 json及びyamlの読み込み部分の修正・追加
