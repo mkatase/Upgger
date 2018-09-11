@@ -94,7 +94,7 @@ published date is none, status is DRAFT.
 * OS: Fedora 28 (4.17.19.200) on x86_64
 * Python: 3.6.6
 * google-api-python-client: 1.7.4
-* oauth2client: 4.1.2
+* oauth2client: 4.1.3
 
 ## Version
 * v0.50 2018/09/03 delete to timezone

@@ -87,7 +87,7 @@ $ python3 upgger.py -i hello.html -d
 * OS: Fedora 28 (4.17.19.200) on x86_64
 * Python: 3.6.6
 * google-api-python-client: 1.7.4
-* oauth2client: 4.1.2
+* oauth2client: 4.1.3
 
 ## バージョン
 * v0.50 2018/09/03 タイムゾーンを削除
