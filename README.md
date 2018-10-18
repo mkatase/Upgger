@@ -91,7 +91,7 @@ published date is none, status is DRAFT.
 * no permalink
 
 ## Development Environment
-* OS: Fedora 28 (4.18.13-200) on x86_64
+* OS: Fedora 28 (4.18.14-200) on x86_64
 * Python: 3.6.6
 * google-api-python-client: 1.7.4
 * oauth2client: 4.1.3
