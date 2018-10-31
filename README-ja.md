@@ -84,8 +84,8 @@ $ python3 upgger.py -i hello.html -d
 * パーマリンクは設定できない
 
 ## 開発環境
-* OS: Fedora 28 (4.18.14-200) on x86_64
-* Python: 3.6.6
+* OS: Fedora 29 (4.18.16-300) on x86_64
+* Python: 3.7.1
 * google-api-python-client: 1.7.4
 * oauth2client: 4.1.3
 
